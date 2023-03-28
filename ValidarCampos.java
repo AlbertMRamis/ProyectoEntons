@@ -4,56 +4,8 @@ import java.util.Scanner;
 public class ValidarCampos {
 
   public static boolean validarCampos(String nombre, String email, String password) {
-    if (nombre.length() > 16) {
-      System.out.println("el nombre no puede tener mas de 16 carácteres"); // ok
-      return false;
-    }
-    if (!Character.isUpperCase(nombre.charAt(0))) { // ok
-      System.out.println("el nombre tiene que empezar por mayúsculas");
-      return false;
-    }
-    for (int i = 1; i < nombre.length() - 4; i++) {
-      if (Character.isUpperCase(nombre.charAt(i))) {
-        System.out.println("solo la primera letra del nombre en mayúsculas"); // ok
-        return false;
-      }
-    }
-    if (nombre.charAt(nombre.length() - 4) != '_' && // ok
-        nombre.charAt(nombre.length() - 4) != '-') {
-      System.out.println("Falta el guión o no esta en la cuarta posicion contando desde el final");
-      return false;
-    }
-    for (int i = nombre.length() - 3; i < nombre.length(); i++) { // ok
-      if (!Character.isDigit(nombre.charAt(i))) {
-        System.out.println("El nombre tiene que terminar con tres dígitos");
-        return false;
-      }
-    }
-    String[] dominiosPermitidos = { "paucasesnovescifp", "yahoo", "gmail",
-        "hotmail" };
-    boolean dominioValido = false;
-    if (!email.contains("@")) {
-      System.out.println("falta @"); // ok
-      return false;
-    }
-
-    for (String dominio : dominiosPermitidos) {
-      if (email.contains("@" + dominio)) {
-
-        dominioValido = true; // ok
-        break;
-      }
-    }
-    if (!dominioValido) {
-      System.out.println("error dominio");
-      return false; // ok
-    }
-
-    if (!(email.endsWith(".com") || email.endsWith(".es") ||
-        email.endsWith(".cat"))) {
-      System.out.println("error de extensión"); // ok
-      return false;
-    }
+    validarNombre(nombre);
+    validarEmail(email);
     if (password.length() != 8) {
       System.out.println("introduce password de 8 caracteres"); // ok
       return false;
@@ -100,4 +52,61 @@ public class ValidarCampos {
 
   }
 
+  public static boolean validarEmail(String email) {
+    String[] dominiosPermitidos = { "paucasesnovescifp", "yahoo", "gmail",
+        "hotmail" };
+    boolean dominioValido = false;
+    if (!email.contains("@")) {
+      System.out.println("falta @"); // ok
+      return false;
+    }
+
+    for (String dominio : dominiosPermitidos) {
+      if (email.contains("@" + dominio)) {
+
+        dominioValido = true; // ok
+        break;
+      }
+    }
+    if (!dominioValido) {
+      System.out.println("error dominio");
+      return false; // ok
+    }
+
+    if (!(email.endsWith(".com") || email.endsWith(".es") ||
+        email.endsWith(".cat"))) {
+      System.out.println("error de extensión"); // ok
+      return false;
+    }
+    return dominioValido;
+  }
+
+  public static boolean validarNombre(String nombre) {
+    if (nombre.length() > 16) {
+      System.out.println("el nombre no puede tener mas de 16 carácteres"); // ok
+      return false;
+    }
+    if (!Character.isUpperCase(nombre.charAt(0))) { // ok
+      System.out.println("el nombre tiene que empezar por mayúsculas");
+      return false;
+    }
+    for (int i = 1; i < nombre.length() - 4; i++) {
+      if (Character.isUpperCase(nombre.charAt(i))) {
+        System.out.println("solo la primera letra del nombre en mayúsculas"); // ok
+        return false;
+      }
+    }
+    if (nombre.charAt(nombre.length() - 4) != '_' && // ok
+        nombre.charAt(nombre.length() - 4) != '-') {
+      System.out.println("Falta el guión o no esta en la cuarta posicion contando desde el final");
+      return false;
+    }
+    for (int i = nombre.length() - 3; i < nombre.length(); i++) { // ok
+      if (!Character.isDigit(nombre.charAt(i))) {
+        System.out.println("El nombre tiene que terminar con tres dígitos");
+        return false;
+      }
+    }
+    return true;
+  }
 }
