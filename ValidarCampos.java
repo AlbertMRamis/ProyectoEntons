@@ -1,36 +1,27 @@
-package registro;
 
 import java.util.Random;
 import java.util.Scanner;
 
+/**
+ * La clase ValidarCampos permet crear un objecte
+ * ValidarCampos y validar que els atributs rebuts siguin correctes.
+ * 
+ * @author albert
+ *
+ */
 public class ValidarCampos {
-
   public static boolean validarCampos(String nombre, String email, String password) {
-    if (nombre.length() > 16) {
-      System.out.println("el nombre no puede tener mas de 16 carácteres"); // ok
-      return false;
-    }
-    if (!Character.isUpperCase(nombre.charAt(0))) { // ok
-      System.out.println("el nombre tiene que empezar por mayúsculas");
-      return false;
-    }
-    for (int i = 1; i < nombre.length() - 4; i++) {
-      if (Character.isUpperCase(nombre.charAt(i))) {
-        System.out.println("solo la primera letra del nombre en mayúsculas"); // ok
-        return false;
-      }
-    }
-    if (nombre.charAt(nombre.length() - 4) != '_' && // ok
-        nombre.charAt(nombre.length() - 4) != '-') {
-      System.out.println("Falta el guión o no esta en la cuarta posicion contando desde el final");
-      return false;
-    }
-    for (int i = nombre.length() - 3; i < nombre.length(); i++) { // ok
-      if (!Character.isDigit(nombre.charAt(i))) {
-        System.out.println("El nombre tiene que terminar con tres dígitos");
-        return false;
-      }
-    }
+    validarNombre(nombre, null);
+    validarEmail(email);
+   
+  /**
+   * Mètode que mira si el email introduit compleix el format correcte
+   * 
+   * @param email String que pasam al mètode per que el validi
+   * @return boolean que es true si el valor introduit es correcte
+   * @author albert
+   */
+  public static boolean validarEmail(String email) {
     String[] dominiosPermitidos = { "paucasesnovescifp", "yahoo", "gmail",
         "hotmail" };
     boolean dominioValido = false;
@@ -56,13 +47,48 @@ public class ValidarCampos {
       System.out.println("error de extensión"); // ok
       return false;
     }
-    if (compruebaPassword(password)) {
-      String codigo = generaCodigo();
-      return compruebaCodigo(codigo);
-    }
-    return false;
-
+    return dominioValido;
   }
+
+  /**
+   * Metode que que mira si el nom introduit compleix el format correcte
+   * 
+   * @param nombre   String que pasam al mètode per que validi que es un nom
+   *                 correcte
+   * @param usuarios array de noms que hem afegit per probar la refactoritzacio de
+   *                 cambi de signatura del mètode.
+   * @return
+   */
+
+  public static boolean validarNombre(String nombre, String[] usuarios) {
+    if (nombre.length() > 16) {
+      System.out.println("el nombre no puede tener mas de 16 carácteres"); // ok
+      return false;
+    }
+    if (!Character.isUpperCase(nombre.charAt(0))) { // ok
+      System.out.println("el nombre tiene que empezar por mayúsculas");
+      return false;
+    }
+    for (int i = 1; i < nombre.length() - 4; i++) {
+      if (Character.isUpperCase(nombre.charAt(i))) {
+        System.out.println("solo la primera letra del nombre en mayúsculas"); // ok
+        return false;
+      }
+    }
+    if (nombre.charAt(nombre.length() - 4) != '_' && // ok
+        nombre.charAt(nombre.length() - 4) != '-') {
+      System.out.println("Falta el guión o no esta en la cuarta posicion contando desde el final");
+      return false;
+    }
+    for (int i = nombre.length() - 3; i < nombre.length(); i++) { // ok
+      if (!Character.isDigit(nombre.charAt(i))) {
+        System.out.println("El nombre tiene que terminar con tres dígitos");
+        return false;
+      }
+    }
+    return true;
+  }
+}
 
   public static boolean compruebaPassword(String password) {
     if (password.length() != 8) {
@@ -111,3 +137,4 @@ public class ValidarCampos {
     }
   }
 }
+
