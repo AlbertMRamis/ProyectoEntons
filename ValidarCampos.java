@@ -1,10 +1,16 @@
 import java.util.Random;
 import java.util.Scanner;
 
+/**
+ * La clase ValidarCampos permet crear un objecte
+ * ValidarCampos y validar que els atributs rebuts siguin correctes.
+ * 
+ * @author albert
+ *
+ */
 public class ValidarCampos {
-
   public static boolean validarCampos(String nombre, String email, String password) {
-    validarNombre(nombre);
+    validarNombre(nombre, null);
     validarEmail(email);
     if (password.length() != 8) {
       System.out.println("introduce password de 8 caracteres"); // ok
@@ -52,6 +58,13 @@ public class ValidarCampos {
 
   }
 
+  /**
+   * Mètode que mira si el email introduit compleix el format correcte
+   * 
+   * @param email String que pasam al mètode per que el validi
+   * @return boolean que es true si el valor introduit es correcte
+   * @author albert
+   */
   public static boolean validarEmail(String email) {
     String[] dominiosPermitidos = { "paucasesnovescifp", "yahoo", "gmail",
         "hotmail" };
@@ -81,7 +94,17 @@ public class ValidarCampos {
     return dominioValido;
   }
 
-  public static boolean validarNombre(String nombre) {
+  /**
+   * Metode que que mira si el nom introduit compleix el format correcte
+   * 
+   * @param nombre   String que pasam al mètode per que validi que es un nom
+   *                 correcte
+   * @param usuarios array de noms que hem afegit per probar la refactoritzacio de
+   *                 cambi de signatura del mètode.
+   * @return
+   */
+
+  public static boolean validarNombre(String nombre, String[] usuarios) {
     if (nombre.length() > 16) {
       System.out.println("el nombre no puede tener mas de 16 carácteres"); // ok
       return false;
