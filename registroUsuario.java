@@ -1,4 +1,3 @@
-package registro;
 
 import java.util.Scanner;
 
