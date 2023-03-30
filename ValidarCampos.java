@@ -1,87 +1,11 @@
+package registro;
+
 import java.util.Random;
 import java.util.Scanner;
 
 public class ValidarCampos {
 
   public static boolean validarCampos(String nombre, String email, String password) {
-    validarNombre(nombre);
-    validarEmail(email);
-    if (password.length() != 8) {
-      System.out.println("introduce password de 8 caracteres"); // ok
-      return false;
-    }
-    if (!Character.isUpperCase(password.charAt(0))) {
-      System.out.println("el password debe empezar con mayúsculas");
-      return false; // OK
-    }
-    if (!(password.contains("@") || password.contains("-") ||
-        password.contains("#") || password.contains("_"))) {
-      System.out.println("introduce uno de los siguientes símbolos @,#,-, _");
-      return false; // ok
-    }
-    if (!Character.isDigit(password.charAt(password.length() - 1))
-        || !Character.isDigit(password.charAt(password.length() - 2))) {
-      System.out.println("el password debe terminar en dos dígitos");
-      return false; // ok
-    }
-
-    StringBuilder codigo = new StringBuilder();
-    Random random = new Random();
-    String caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789#@-_";
-    for (int i = 0; i < 8; i++) {
-      int index = random.nextInt(caracteres.length());
-      codigo.append(caracteres.charAt(index));
-    }
-
-    // Mostrar código de seguridad por pantalla
-    System.out.println("El código de seguridad es: " + codigo);
-
-    // Pedir al usuario que escriba el código de seguridad
-    Scanner scanner = new Scanner(System.in);
-    System.out.print("Introduce el código de seguridad: ");
-    String codigoUsuario = scanner.nextLine();
-
-    // Comprobar si el código de seguridad introducido es correcto
-    if (codigo.toString().equals(codigoUsuario)) {
-      return true;
-    } else {
-      System.out.println("error");
-      return false;
-
-    }
-
-  }
-
-  public static boolean validarEmail(String email) {
-    String[] dominiosPermitidos = { "paucasesnovescifp", "yahoo", "gmail",
-        "hotmail" };
-    boolean dominioValido = false;
-    if (!email.contains("@")) {
-      System.out.println("falta @"); // ok
-      return false;
-    }
-
-    for (String dominio : dominiosPermitidos) {
-      if (email.contains("@" + dominio)) {
-
-        dominioValido = true; // ok
-        break;
-      }
-    }
-    if (!dominioValido) {
-      System.out.println("error dominio");
-      return false; // ok
-    }
-
-    if (!(email.endsWith(".com") || email.endsWith(".es") ||
-        email.endsWith(".cat"))) {
-      System.out.println("error de extensión"); // ok
-      return false;
-    }
-    return dominioValido;
-  }
-
-  public static boolean validarNombre(String nombre) {
     if (nombre.length() > 16) {
       System.out.println("el nombre no puede tener mas de 16 carácteres"); // ok
       return false;
@@ -107,6 +31,83 @@ public class ValidarCampos {
         return false;
       }
     }
+    String[] dominiosPermitidos = { "paucasesnovescifp", "yahoo", "gmail",
+        "hotmail" };
+    boolean dominioValido = false;
+    if (!email.contains("@")) {
+      System.out.println("falta @"); // ok
+      return false;
+    }
+
+    for (String dominio : dominiosPermitidos) {
+      if (email.contains("@" + dominio)) {
+
+        dominioValido = true; // ok
+        break;
+      }
+    }
+    if (!dominioValido) {
+      System.out.println("error dominio");
+      return false; // ok
+    }
+
+    if (!(email.endsWith(".com") || email.endsWith(".es") ||
+        email.endsWith(".cat"))) {
+      System.out.println("error de extensión"); // ok
+      return false;
+    }
+    if (compruebaPassword(password)) {
+      String codigo = generaCodigo();
+      return compruebaCodigo(codigo);
+    }
+    return false;
+
+  }
+
+  public static boolean compruebaPassword(String password) {
+    if (password.length() != 8) {
+      System.out.println("introduce password de 8 caracteres"); // ok
+      return false;
+    }
+    if (!Character.isUpperCase(password.charAt(0))) {
+      System.out.println("el password debe empezar con mayúsculas");
+      return false; // OK
+    }
+    if (!(password.contains("@") || password.contains("-") ||
+        password.contains("#") || password.contains("_"))) {
+      System.out.println("introduce uno de los siguientes símbolos @,#,-, _");
+      return false; // ok
+    }
+    if (!Character.isDigit(password.charAt(password.length() - 1))
+        || !Character.isDigit(password.charAt(password.length() - 2))) {
+      System.out.println("el password debe terminar en dos dígitos");
+      return false; // ok
+    }
     return true;
+  }
+
+  public static String generaCodigo() {
+    StringBuilder codigo = new StringBuilder();
+    Random random = new Random();
+    String caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789#@-_";
+    for (int i = 0; i < 8; i++) {
+      int index = random.nextInt(caracteres.length());
+      codigo.append(caracteres.charAt(index));
+    }
+    System.out.println("El código de seguridad es: " + codigo);
+    return codigo.toString();
+  }
+
+  public static boolean compruebaCodigo(String codigoGenerado) {
+    Scanner scanner = new Scanner(System.in);
+    System.out.print("Introduce el código de seguridad: ");
+    String codigoUsuario = scanner.nextLine();
+
+    if (codigoGenerado.equals(codigoUsuario)) {
+      return true;
+    } else {
+      System.out.println("error");
+      return false;
+    }
   }
 }
