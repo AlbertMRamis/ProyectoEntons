@@ -11,16 +11,19 @@ import java.util.Scanner;
  */
 
 public class ValidarCampos {
-  public static boolean validarCampos(String nombre, String email, String password) {
-    validarNombre(nombre, null);
-    validarEmail(email);
-    compruebaPassword(password);
 
-    return compruebaCodigo();
+  private String password;
+  private String correo;
+  private String nombreUsuario;
 
+  public ValidarCampos(String password, String correo, String nombreUsuario) {
+
+    this.password = password;
+    this.correo = correo;
+    this.nombreUsuario = nombreUsuario;
   }
 
-  public static boolean compruebaCodigo() {
+  public boolean compruebaCodigo() {
     StringBuilder codigo = new StringBuilder();
     Random random = new Random();
     String caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789#@-_";
@@ -47,7 +50,7 @@ public class ValidarCampos {
     }
   }
 
-  public static boolean compruebaPassword(String password) {
+  public boolean compruebaPassword(String password) {
     if (password.length() != 8) {
       System.out.println("introduce password de 8 caracteres"); // ok
       return false;
@@ -76,7 +79,7 @@ public class ValidarCampos {
    * @return boolean que es true si el valor introduit es correcte
    * @author albert
    */
-  public static boolean validarEmail(String email) {
+  public boolean validarEmail(String email) {
     String[] dominiosPermitidos = { "paucasesnovescifp", "yahoo", "gmail",
         "hotmail" };
     boolean dominioValido = false;
@@ -115,7 +118,7 @@ public class ValidarCampos {
    * @return
    */
 
-  public static boolean validarNombre(String nombre, String[] usuarios) {
+  public boolean validarNombre(String nombre, String[] usuarios) {
     if (nombre.length() > 16) {
       System.out.println("el nombre no puede tener mas de 16 carácteres"); // ok
       return false;
@@ -143,4 +146,29 @@ public class ValidarCampos {
     }
     return true;
   }
+
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
+  }
+
+  public String getCorreo() {
+    return correo;
+  }
+
+  public void setCorreo(String correo) {
+    this.correo = correo;
+  }
+
+  public String getNombreUsuario() {
+    return nombreUsuario;
+  }
+
+  public void setNombreUsuario(String nombreUsuario) {
+    this.nombreUsuario = nombreUsuario;
+  }
+
 }
