@@ -7,22 +7,42 @@ import java.util.Scanner;
 public class registroUsuario {
 
   public static void main(String[] args) {
+    ValidarCampos v = new ValidarCampos(null, null, null);
+    init(v);
+  }
+
+  public static void init(ValidarCampos v) {
     Scanner teclat = new Scanner(System.in);
-    String usuario;
-    String correo;
-    String password;
-    boolean correcto;
+    Boolean correcto = true;
 
     do {
-      System.out.println("introduce nombre");
-      usuario = teclat.next();
-      System.out.println("introduce correo");
-      correo = teclat.next();
-      System.out.println("introduce password");
-      password = teclat.next();
-      correcto = ValidarCampos.validarCampos(usuario, correo, password);
+      System.out.println("introduce un nombre");
+      v.setNombreUsuario(teclat.nextLine());
+      correcto = v.validarNombre(v.getNombreUsuario(), null);
     } while (!correcto);
-    System.out.println("usuario:" + usuario + " correo:" + correo + " password:" + password);
-    System.out.println("El registro se ha realizado con éxito");
+
+    do {
+      System.out.println("introduce un email");
+      v.setCorreo(teclat.nextLine());
+      correcto = v.validarEmail(v.getCorreo());
+    } while (!correcto);
+
+    do {
+      System.out.println("introduce un password");
+      v.setPassword(teclat.nextLine());
+      correcto = v.compruebaPassword(v.getPassword());
+
+    } while (!correcto);
+
+    do {
+      correcto = v.compruebaCodigo();
+    } while (!correcto);
+
+    System.out.println("correcto");
+    System.out.println(
+        "[nombre " + v.getNombreUsuario() + "]    [email: " + v.getCorreo() + "]    [password: " + v.getPassword()
+            + "]");
+
   }
+
 }
