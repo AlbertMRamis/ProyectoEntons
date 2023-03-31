@@ -11,11 +11,87 @@ import java.util.Scanner;
  *
  */
 
-public class ValidarCampos implements nombre, ValidarCampos {
-    public ValidarCampos() {
-        super();
-        // TODO Apéndice de constructor generado automáticamente
-    }
+public class ValidarCampos implements nombre{
+    static Scanner teclat;	
+    static String usuario;
+	static String password;
+	static boolean correcto;
+	static String correo;
+	public static Scanner getTeclat() {
+		return teclat;
+	}
+
+
+
+
+	public static void setTeclat(Scanner teclat) {
+		ValidarCampos.teclat = teclat;
+	}
+
+
+
+
+	public static String getUsuario() {
+		return usuario;
+	}
+
+
+
+
+	public static void setUsuario(String usuario) {
+		ValidarCampos.usuario = usuario;
+	}
+
+
+
+
+	public static String getPassword() {
+		return password;
+	}
+
+
+
+
+	public static void setPassword(String password) {
+		ValidarCampos.password = password;
+	}
+
+
+
+
+	public static boolean isCorrecto() {
+		return correcto;
+	}
+
+
+
+
+	public static void setCorrecto(boolean correcto) {
+		ValidarCampos.correcto = correcto;
+	}
+
+
+
+
+	public static String getCorreo() {
+		return correo;
+	}
+
+
+
+
+	public static void setCorreo(String correo) {
+		ValidarCampos.correo = correo;
+	}
+
+
+	public ValidarCampos() {
+		super();
+		// TODO Apéndice de constructor generado automáticamente
+	}
+
+	
+
 
     public static boolean validarCampos(String nombre, String email, String password) {
         validarNombre(nombre, null);
@@ -28,7 +104,6 @@ public class ValidarCampos implements nombre, ValidarCampos {
 
     /**
      * Metode que comproba el codig que s'escrio
-     * 
      * @param codig String que pasam al mètode per que el validi
      * @return boolean que es true si el valor introduit es correcte
      * @author pau
